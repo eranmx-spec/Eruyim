@@ -105,9 +105,10 @@ button[data-save-link] .save-link-text {
 
 .hero {
   position: relative; overflow: hidden;
+  /* 270deg: הצד הכהה מימין, מאחורי הטקסט בעמוד RTL */
   background:
-    linear-gradient(90deg, rgba(25, 18, 12, 0.8), rgba(25, 18, 12, 0.48) 42%, rgba(25, 18, 12, 0.24)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    linear-gradient(270deg, rgba(25, 18, 12, 0.84), rgba(25, 18, 12, 0.56) 45%, rgba(25, 18, 12, 0.3)),
+    url("images/fire-circle.jpg") center/cover no-repeat;
 }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18, 16, 14, 0.04), rgba(18, 16, 14, 0.28)); }
 .hero-inner {
@@ -179,12 +180,12 @@ button[data-save-link] .save-link-text {
 .image-card.one {
   background-image:
     linear-gradient(180deg, rgba(18, 15, 12, 0.12), rgba(18, 15, 12, 0.72)),
-    url("https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80");
+    url("images/forest-cooking.jpg");
 }
 .image-card.two {
   background-image:
     linear-gradient(180deg, rgba(18, 15, 12, 0.12), rgba(18, 15, 12, 0.72)),
-    url("https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1200&q=80");
+    url("images/beach-guitar.jpg");
 }
 .card-copy { padding: 24px 24px 28px; color: white; }
 .card-kicker {
@@ -198,6 +199,16 @@ button[data-save-link] .save-link-text {
 }
 .text-card p { color: var(--ink); }
 .accent-card { background: linear-gradient(135deg, rgba(181, 95, 60, 0.1), rgba(255, 244, 236, 0.92)); }
+
+.gallery { padding-bottom: 82px; }
+.gallery-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 22px; }
+.gallery-item {
+  position: relative; margin: 0; overflow: hidden; border-radius: 28px; box-shadow: var(--shadow); background: #2a211b;
+}
+.gallery-item img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+/* התמונה הגבוהה ממוקמת אבסולוטית כדי שהגובה המקורי שלה לא ימתח את השורות */
+.gallery-tall { grid-row: span 2; min-height: 320px; }
+.gallery-tall img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
 
 .details { padding-bottom: 82px; }
 .details-wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr); gap: 24px; align-items: stretch; }
@@ -430,6 +441,13 @@ button[data-save-link] .save-link-text {
   .hero-copy { max-width: 100%; }
   .cards-grid { display: grid; grid-template-columns: 1fr; }
   .image-card, .text-card { grid-column: auto; }
+  .hero {
+    background:
+      linear-gradient(180deg, rgba(25, 18, 12, 0.8), rgba(25, 18, 12, 0.62) 55%, rgba(25, 18, 12, 0.45)),
+      url("images/fire-circle.jpg") center/cover no-repeat;
+  }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-tall { grid-row: auto; aspect-ratio: 4 / 5; min-height: 0; }
   .newsletter-inner { align-items: flex-start; }
   .newsletter-form { min-width: 100%; width: 100%; }
   .contact-box { flex-direction: column; align-items: flex-start; min-width: 100%; }

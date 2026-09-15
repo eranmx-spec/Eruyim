@@ -2,3 +2,6 @@
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Original photos (processed copies live in images/)
+EruyimPic/
