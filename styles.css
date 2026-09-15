@@ -89,6 +89,14 @@ button, input { font: inherit; }
 .btn-secondary {
   background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(29, 26, 23, 0.08); color: var(--ink);
 }
+button[data-save-link] {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(29, 26, 23, 0.12);
+  color: #311d16;
+}
+button[data-save-link] .save-link-text {
+  font-weight: 800;
+}
 .btn-light {
   background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); color: white; backdrop-filter: blur(8px);
 }
