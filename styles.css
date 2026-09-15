@@ -63,6 +63,7 @@ button, input { font: inherit; }
   border-radius: 12px; background: linear-gradient(135deg, var(--terracotta), #d1885a); color: white;
   box-shadow: var(--shadow); font-size: 1.2rem;
 }
+img.brand-mark { display: block; background: none; }
 .brand-text { font-size: 1.05rem; }
 .main-nav {
   display: flex; align-items: center; gap: 28px; color: rgba(255, 255, 255, 0.84);
