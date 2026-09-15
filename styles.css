@@ -442,13 +442,36 @@ button[data-save-link] .save-link-text {
   .hero-copy { max-width: 100%; }
   .cards-grid { display: grid; grid-template-columns: 1fr; }
   .image-card, .text-card { grid-column: auto; }
+  /* בטלפון התמונה מוצגת במלואה בראש האזור (1370x1148 → גובה 83.8vw) ונמוגה לרקע כהה מאחורי הטקסט */
   .hero {
     background:
-      linear-gradient(180deg, rgba(25, 18, 12, 0.8), rgba(25, 18, 12, 0.62) 55%, rgba(25, 18, 12, 0.45)),
-      url("images/fire-circle.jpg") center/cover no-repeat;
+      linear-gradient(180deg, rgba(31, 23, 18, 0) 44vw, rgba(31, 23, 18, 0.8) 70vw, #1f1712 83vw),
+      url("images/fire-circle.jpg") top center / 100% auto no-repeat,
+      #1f1712;
   }
+  .hero-overlay { display: none; }
+  .hero-inner { padding-top: 62vw; }
+  .hero-copy .eyebrow, .hero-copy h1, .hero-copy p { text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65); }
+
+  /* כרטיסי התמונה: התמונה (16:9) מלאה למעלה והטקסט מתחתיה על רקע כהה */
+  .image-card {
+    min-height: 0; padding-top: calc((100vw - 32px) * 0.556 - 60px);
+    background-color: #231a14; background-size: 100% 100%, 100% auto; background-position: top; background-repeat: no-repeat;
+  }
+  .image-card.one {
+    background-image:
+      linear-gradient(180deg, rgba(35, 26, 20, 0) calc((100vw - 32px) * 0.556 - 120px), #231a14 calc((100vw - 32px) * 0.556)),
+      url("images/forest-cooking.jpg");
+  }
+  .image-card.two {
+    background-image:
+      linear-gradient(180deg, rgba(35, 26, 20, 0) calc((100vw - 32px) * 0.556 - 120px), #231a14 calc((100vw - 32px) * 0.556)),
+      url("images/beach-guitar.jpg");
+  }
+
   .gallery-grid { grid-template-columns: 1fr; }
-  .gallery-tall { grid-row: auto; aspect-ratio: 4 / 5; min-height: 0; }
+  /* min-height הוא גיבוי לדפדפנים ישנים בלי aspect-ratio, שבהם התמונה הגבוהה הייתה מתכווצת לגובה 0 */
+  .gallery-tall { grid-row: auto; width: 100%; aspect-ratio: 4 / 5; min-height: 420px; max-height: 80vh; }
   .newsletter-inner { align-items: flex-start; }
   .newsletter-form { min-width: 100%; width: 100%; }
   .contact-box { flex-direction: column; align-items: flex-start; min-width: 100%; }
