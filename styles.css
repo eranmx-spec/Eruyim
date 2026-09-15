@@ -270,13 +270,6 @@ button[data-save-link] .save-link-text {
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
 
-.cookie-banner {
-  position: fixed; left: 50%; right: auto; bottom: 20px; transform: translateX(-50%);
-  width: min(760px, calc(100% - 28px)); display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 18px 22px; background: rgba(29, 26, 23, 0.95); color: white; border-radius: 18px; box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28); z-index: 50;
-}
-.cookie-banner p { margin: 0; font-size: 0.96rem; color: rgba(255, 255, 255, 0.8); }
-
 .terms-page {
   padding: 72px 0 84px;
 }
@@ -366,6 +359,5 @@ button[data-save-link] .save-link-text {
   .newsletter-form { flex-direction: column; align-items: stretch; }
   .newsletter-form input, .newsletter-form button { width: 100%; }
   .signup-form { grid-template-columns: 1fr; }
-  .cookie-banner { flex-direction: column; align-items: stretch; text-align: center; }
   .footer-inner, .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
