@@ -54,4 +54,80 @@ document.addEventListener('DOMContentLoaded', () => {
       navigator.clipboard?.writeText(link).catch(() => {});
     });
   }
+
+  const signupForm = document.querySelector('[data-signup-form]');
+
+  if (signupForm) {
+    const nameInput = signupForm.elements.name;
+    const phoneInput = signupForm.elements.phone;
+    const submitBtn = signupForm.querySelector('button[type="submit"]');
+    const status = signupForm.querySelector('.form-status');
+
+    const normalizePhone = (value) => {
+      let digits = value.replace(/\D/g, '');
+      if (digits.startsWith('972')) digits = `0${digits.slice(3)}`;
+      return /^0(5\d|7\d|[2-489])\d{7}$/.test(digits) ? digits : '';
+    };
+
+    const setStatus = (message, type) => {
+      status.textContent = message;
+      status.dataset.type = type;
+    };
+
+    const markInvalid = (input, invalid) => {
+      input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+    };
+
+    signupForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const name = nameInput.value.trim();
+      const phone = normalizePhone(phoneInput.value);
+
+      markInvalid(nameInput, name.length < 2);
+      markInvalid(phoneInput, !phone);
+
+      if (name.length < 2) {
+        setStatus('נא להזין שם מלא.', 'error');
+        nameInput.focus();
+        return;
+      }
+
+      if (!phone) {
+        setStatus('נא להזין מספר טלפון ישראלי תקין.', 'error');
+        phoneInput.focus();
+        return;
+      }
+
+      const endpoint = signupForm.dataset.endpoint;
+      if (!endpoint) {
+        setStatus('הטופס עדיין לא מחובר לגוגל שיטס.', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      setStatus('שולח...', 'pending');
+
+      try {
+        // no-cors: Apps Script מבצע הפניה, ולכן לא קוראים את התשובה
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({
+            name,
+            phone,
+            website: signupForm.elements.website.value,
+            source: 'אתר',
+          }),
+        });
+
+        signupForm.reset();
+        setStatus('תודה! הפרטים נשמרו ונחזור אליכם בקרוב 🍷', 'success');
+      } catch {
+        setStatus('השליחה נכשלה. נסו שוב או שלחו לנו וואטסאפ.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
 });

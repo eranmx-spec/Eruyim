@@ -223,10 +223,29 @@
           <div class="container newsletter-inner">
             <div>
               <span class="eyebrow eyebrow-dark">הצטרפו למועדון</span>
-              <h2>קבלו טיפים, מתכונים ומדריכי שטח ישירות למייל.</h2>
+              <h2>השאירו שם וטלפון ונחזור אליכם עם כל הפרטים.</h2>
             </div>
 
-            <div class="newsletter-form contact-box" aria-label="יצירת קשר דרך וואטסאפ">
+            <form class="signup-form" data-signup-form data-endpoint="" novalidate>
+              <div class="field">
+                <label for="signup-name">שם מלא</label>
+                <input id="signup-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" />
+              </div>
+              <div class="field">
+                <label for="signup-phone">טלפון</label>
+                <input id="signup-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required placeholder="050-1234567" />
+              </div>
+              <div class="hp-field" aria-hidden="true">
+                <label for="signup-website">אתר</label>
+                <input id="signup-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <button type="submit" class="btn btn-primary">שלחו פרטים</button>
+              <p class="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <div class="container">
+            <div class="newsletter-form contact-box contact-box-wide" aria-label="יצירת קשר דרך וואטסאפ">
               <p>מספר וואטסאפ לתיאום:</p>
               <strong aria-label="מספר טלפון 0559272777">055-9272777</strong>
               <a href="https://wa.me/972559272777" target="_blank" rel="noreferrer" aria-label="שלח הודעה בווצאפ לתיאום" class="btn btn-primary">שלח הודעה</a>
