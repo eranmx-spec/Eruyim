@@ -246,6 +246,59 @@ button, input { font: inherit; }
 }
 .cookie-banner p { margin: 0; font-size: 0.96rem; color: rgba(255, 255, 255, 0.8); }
 
+.terms-page {
+  padding: 72px 0 84px;
+}
+
+.terms-wrap {
+  max-width: 920px;
+}
+
+.terms-header {
+  margin-bottom: 24px;
+}
+
+.terms-header h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.06em;
+}
+
+.terms-header p {
+  margin: 18px 0 0;
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+
+.terms-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(29, 26, 23, 0.08);
+  border-radius: 28px;
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+}
+
+.terms-card h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
+}
+
+.terms-card p {
+  margin: 0 0 20px;
+  color: var(--ink);
+  line-height: 1.8;
+}
+
+.legal-note {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(29, 26, 23, 0.08);
+  color: var(--muted);
+}
+
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
