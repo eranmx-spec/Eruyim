@@ -31,8 +31,8 @@
       href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="accessibility.js"></script>
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <script src="accessibility.js?v=2"></script>
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">דלג לתוכן</a>
@@ -66,6 +66,27 @@
 
       <main id="main-content">
         <section class="hero">
+          <!-- הסצנה בנויה בקואורדינטות של התמונה המקורית (1370x1148), ו-scene.js מתאים אותה לגודל האזור -->
+          <div class="hero-scene" aria-hidden="true">
+            <div class="scene-drift">
+              <img class="scene-photo" src="images/fire-circle.jpg" alt="" width="1370" height="1148" />
+              <div class="scene-glow"></div>
+              <div class="scene-sea"></div>
+              <span class="scene-bulb" style="--x: 372px; --y: 10px; --d: 0s"></span>
+              <span class="scene-bulb" style="--x: 495px; --y: 42px; --d: -1.3s"></span>
+              <span class="scene-bulb" style="--x: 670px; --y: 66px; --d: -2.1s"></span>
+              <span class="scene-bulb" style="--x: 862px; --y: 74px; --d: -0.6s"></span>
+              <span class="scene-bulb" style="--x: 1048px; --y: 66px; --d: -3.2s"></span>
+              <span class="scene-bulb" style="--x: 1203px; --y: 44px; --d: -1.8s"></span>
+              <span class="scene-bulb" style="--x: 1328px; --y: 10px; --d: -2.7s"></span>
+              <span class="scene-bulb small" style="--x: 277px; --y: 168px; --d: -0.9s"></span>
+              <span class="scene-candle"></span>
+              <span class="scene-glint" style="--x: 404px; --y: 428px; --d: 0s"></span>
+              <span class="scene-glint" style="--x: 741px; --y: 424px; --d: -2.4s"></span>
+              <span class="scene-glint" style="--x: 1074px; --y: 548px; --d: -4.6s"></span>
+              <canvas class="scene-fire" width="1370" height="1148"></canvas>
+            </div>
+          </div>
           <div class="hero-overlay"></div>
           <div class="container hero-inner">
             <div class="hero-copy">
@@ -119,12 +140,12 @@
         </section>
 
         <section class="intro container" id="about">
-          <div class="section-header">
+          <div class="section-header" data-reveal>
             <span class="eyebrow eyebrow-dark">למה בכלל מפגש כזה?</span>
             <h2>כי הרגעים הכי טובים קורים סביב אש, אוכל ואנשים שעוזרים אחד לשני.</h2>
           </div>
 
-          <div class="split-layout">
+          <div class="split-layout" data-reveal>
             <div class="text-block">
               <p>
                 המפגש הזה נולד מרצון פשוט: להחזיר את התחושה של ערב חברים אמיתי, כמו פעם.
@@ -159,13 +180,13 @@
 
         <section class="experience" id="experience">
           <div class="container">
-            <div class="section-header center-header">
+            <div class="section-header center-header" data-reveal>
               <span class="eyebrow eyebrow-dark">ככה נראה הערב</span>
               <h2>מהגחלים הראשונות ועד הביס האחרון, עושים הכול ביחד</h2>
             </div>
 
             <div class="cards-grid">
-              <article class="experience-card image-card one">
+              <article data-reveal class="experience-card image-card one">
                 <div class="card-copy">
                   <span class="card-kicker">17:00</span>
                   <h3>מגיעים ומתיישבים</h3>
@@ -176,7 +197,7 @@
                 </div>
               </article>
 
-              <article class="experience-card text-card">
+              <article data-reveal class="experience-card text-card">
                 <span class="card-kicker">בישול</span>
                 <h3>כל אחד עוזר, כולם נהנים</h3>
                 <p>
@@ -186,7 +207,7 @@
                 </p>
               </article>
 
-              <article class="experience-card image-card two">
+              <article data-reveal class="experience-card image-card two">
                 <div class="card-copy">
                   <span class="card-kicker">אווירה</span>
                   <h3>שיחות, צחוקים ואש שמחממת</h3>
@@ -197,7 +218,7 @@
                 </div>
               </article>
 
-              <article class="experience-card text-card accent-card">
+              <article data-reveal class="experience-card text-card accent-card">
                 <span class="card-kicker">אוכל</span>
                 <h3>אוכל שלא מפסיק להגיע</h3>
                 <p>
@@ -211,27 +232,27 @@
 
         <section class="gallery" id="gallery" aria-labelledby="gallery-title">
           <div class="container">
-            <div class="section-header center-header">
+            <div class="section-header center-header" data-reveal>
               <span class="eyebrow eyebrow-dark">האווירה</span>
               <h2 id="gallery-title">זה מה שמחכה לכם: אש, אוכל ואנשים טובים</h2>
             </div>
 
             <div class="gallery-grid">
-              <figure class="gallery-item gallery-tall">
+              <figure data-reveal class="gallery-item gallery-tall">
                 <img
                   src="images/long-table.jpg"
                   alt="חברים סביב שולחן עץ ארוך עמוס בשרים, סלטים ופיתות, מתחת לשרשרת נורות ולצד מדורה בלילה"
                   width="768" height="1376" loading="lazy" decoding="async"
                 />
               </figure>
-              <figure class="gallery-item">
+              <figure data-reveal class="gallery-item">
                 <img
                   src="images/cheers.jpg"
                   alt="קבוצת חברים מרימה כוסות ומשיקה לחיים בערב בחוץ"
                   width="685" height="381" loading="lazy" decoding="async"
                 />
               </figure>
-              <figure class="gallery-item">
+              <figure data-reveal class="gallery-item">
                 <img
                   src="images/backyard-grill.jpg"
                   alt="חברים סביב גריל עשן ושולחן עמוס מנות בחצר מוארת בנורות"
@@ -335,6 +356,7 @@
       </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script>
+    <script src="scene.js?v=2"></script>
   </body>
 </html>

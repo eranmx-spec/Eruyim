@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const revealItems = document.querySelectorAll('[data-reveal]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    || document.documentElement.classList.contains('a11y-motion');
+
+  if (revealItems.length && 'IntersectionObserver' in window && !reducedMotion) {
+    document.documentElement.classList.add('reveal-ready');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    revealItems.forEach((item) => revealObserver.observe(item));
+  }
+
   const saveLinkBtn = document.querySelector('[data-save-link]');
 
   if (saveLinkBtn) {

@@ -103,16 +103,85 @@ button[data-save-link] .save-link-text {
 }
 .btn-block { width: 100%; }
 
-.hero {
-  position: relative; overflow: hidden;
-  /* 270deg: הצד הכהה מימין, מאחורי הטקסט בעמוד RTL */
+.hero { position: relative; overflow: hidden; isolation: isolate; background: #1f1712; }
+/* 270deg: הצד הכהה מימין, מאחורי הטקסט בעמוד RTL */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(270deg, rgba(25, 18, 12, 0.84), rgba(25, 18, 12, 0.56) 45%, rgba(25, 18, 12, 0.3)),
-    url("images/fire-circle.jpg") center/cover no-repeat;
+    linear-gradient(180deg, rgba(18, 16, 14, 0.04), rgba(18, 16, 14, 0.28)),
+    linear-gradient(270deg, rgba(25, 18, 12, 0.84), rgba(25, 18, 12, 0.56) 45%, rgba(25, 18, 12, 0.3));
 }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18, 16, 14, 0.04), rgba(18, 16, 14, 0.28)); }
+
+/* הסצנה החיה: בלי JS התמונה פשוט ממלאת את האזור, ו-scene.js ממקם אותה ואת האפקטים בדיוק כמו background cover */
+.hero-scene { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.scene-drift { position: absolute; inset: 0; }
+.scene-photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scene-glow, .scene-sea, .scene-bulb, .scene-candle, .scene-glint, .scene-fire { display: none; }
+
+.hero-scene.is-live { inset: auto; top: 0; left: 0; width: 1370px; height: 1148px; transform-origin: 0 0; }
+.hero-scene.is-live .scene-drift { transform-origin: 600px 700px; animation: scene-drift 18s ease-in-out infinite alternate; }
+.hero-scene.is-live .scene-photo { width: 1370px; height: 1148px; }
+.hero-scene.is-live :is(.scene-glow, .scene-sea, .scene-bulb, .scene-candle, .scene-glint, .scene-fire) { display: block; position: absolute; pointer-events: none; }
+.scene-fire { inset: 0; width: 1370px; height: 1148px; }
+
+/* אור האש שמרצד על הפנים והאבנים */
+.scene-glow {
+  left: 100px; top: 260px; width: 1000px; height: 840px; mix-blend-mode: screen;
+  background: radial-gradient(closest-side, rgba(255, 150, 60, 0.5), rgba(255, 110, 40, 0.2) 55%, rgba(255, 90, 30, 0) 100%);
+  animation: fire-glow 2.6s steps(1, end) infinite;
+}
+/* הים בין העצים: פסי אור שזזים לאט והמים נושמים */
+.scene-sea {
+  left: 880px; top: 312px; width: 260px; height: 54px; mix-blend-mode: screen; opacity: 1;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 55%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 55%, #000 55%, transparent 100%);
+  background:
+    repeating-linear-gradient(176deg, rgba(255, 214, 170, 0) 0 5px, rgba(255, 214, 170, 0.55) 6px, rgba(255, 214, 170, 0) 8px),
+    repeating-linear-gradient(183deg, rgba(190, 210, 255, 0) 0 7px, rgba(190, 210, 255, 0.4) 8px, rgba(190, 210, 255, 0) 11px);
+  background-size: 140px 22px, 180px 30px;
+  animation: sea-waves 5s linear infinite, sea-breathe 3.5s ease-in-out infinite alternate;
+}
+.scene-bulb, .scene-glint {
+  left: var(--x); top: var(--y); width: 110px; height: 110px; margin: -55px 0 0 -55px; border-radius: 50%;
+  mix-blend-mode: screen;
+}
+.scene-bulb {
+  background: radial-gradient(closest-side, rgba(255, 236, 180, 0.85), rgba(255, 200, 110, 0.25) 45%, rgba(255, 190, 90, 0) 100%);
+  animation: bulb-twinkle 2.8s ease-in-out var(--d) infinite;
+}
+.scene-bulb.small { width: 44px; height: 44px; margin: -22px 0 0 -22px; }
+.scene-candle {
+  left: 1190px; top: 880px; width: 150px; height: 170px; border-radius: 50%; mix-blend-mode: screen;
+  background: radial-gradient(closest-side, rgba(255, 220, 140, 0.9), rgba(255, 170, 70, 0.3) 50%, rgba(255, 160, 60, 0) 100%);
+  animation: candle-flicker 1.7s steps(1, end) infinite;
+}
+/* ניצוץ קטן על כוסות היין, כאילו מרימים לחיים */
+.scene-glint {
+  width: 90px; height: 90px; margin: -45px 0 0 -45px; opacity: 0;
+  background:
+    radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 30%),
+    linear-gradient(90deg, transparent 46%, rgba(255, 245, 220, 0.9) 50%, transparent 54%) center / 100% 2px no-repeat,
+    linear-gradient(0deg, transparent 46%, rgba(255, 245, 220, 0.9) 50%, transparent 54%) center / 2px 100% no-repeat;
+  animation: glass-glint 4.5s ease-in-out var(--d) infinite;
+}
+
+@keyframes scene-drift { from { transform: scale(1); } to { transform: scale(1.09) translate(-10px, -8px); } }
+@keyframes fire-glow {
+  0% { opacity: 0.7; } 12% { opacity: 1; } 21% { opacity: 0.45; } 33% { opacity: 0.95; } 46% { opacity: 0.55; }
+  58% { opacity: 1; } 67% { opacity: 0.6; } 79% { opacity: 0.9; } 90% { opacity: 0.4; }
+}
+@keyframes candle-flicker { 0% { opacity: 0.8; } 18% { opacity: 1; } 35% { opacity: 0.65; } 52% { opacity: 0.95; } 71% { opacity: 0.75; } 86% { opacity: 1; } }
+@keyframes sea-waves { from { background-position: 0 0, 0 0; } to { background-position: 140px 3px, -180px -2px; } }
+@keyframes sea-breathe { from { opacity: 0.45; transform: scaleY(0.9); } to { opacity: 1; transform: scaleY(1.1); } }
+@keyframes bulb-twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.2); } }
+@keyframes glass-glint {
+  0%, 70%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  80% { opacity: 1; transform: scale(1.2) rotate(30deg); }
+  90% { opacity: 0; transform: scale(0.6) rotate(60deg); }
+}
+
 .hero-inner {
-  position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 420px);
+  position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 420px);
   gap: 40px; align-items: center; min-height: 720px; padding-block: 70px;
 }
 .hero-copy { max-width: 620px; color: white; }
@@ -209,6 +278,18 @@ button[data-save-link] .save-link-text {
 /* התמונה הגבוהה ממוקמת אבסולוטית כדי שהגובה המקורי שלה לא ימתח את השורות */
 .gallery-tall { grid-row: span 2; min-height: 320px; }
 .gallery-tall img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
+/* תמונות האוכל והחברים נושמות לאט, ומתקרבות קצת כשעוברים עליהן */
+.gallery-item img { animation: photo-breathe 18s ease-in-out infinite alternate; transition: filter 0.5s ease; }
+.gallery-item:nth-child(2) img { animation-delay: -6s; }
+.gallery-item:nth-child(3) img { animation-delay: -12s; }
+.gallery-item:hover img { filter: saturate(1.15) brightness(1.05); }
+.experience-card { transition: transform 0.45s ease, box-shadow 0.45s ease; }
+.experience-card:hover, .reveal-ready .experience-card.is-visible:hover { transform: translateY(-6px); box-shadow: 0 26px 50px rgba(35, 22, 10, 0.2); }
+@keyframes photo-breathe { from { transform: scale(1); } to { transform: scale(1.07); } }
+
+/* חשיפה עדינה בגלילה – רק כש-JS פעיל, כדי שבלעדיו התוכן לא יוסתר */
+.reveal-ready [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-ready [data-reveal].is-visible { opacity: 1; transform: none; }
 
 .details { padding-bottom: 82px; }
 .details-wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr); gap: 24px; align-items: stretch; }
@@ -397,6 +478,7 @@ button[data-save-link] .save-link-text {
 .a11y-contrast .page-shell input { border: 2px solid #ff0 !important; }
 .a11y-contrast .page-shell input::placeholder { color: #bbb !important; }
 .a11y-contrast .hero-overlay { display: none !important; }
+.a11y-contrast .hero-scene { display: none !important; }
 
 .a11y-grayscale .page-shell { filter: grayscale(1); }
 
@@ -443,13 +525,8 @@ button[data-save-link] .save-link-text {
   .cards-grid { display: grid; grid-template-columns: 1fr; }
   .image-card, .text-card { grid-column: auto; }
   /* בטלפון התמונה מוצגת במלואה בראש האזור (1370x1148 → גובה 83.8vw) ונמוגה לרקע כהה מאחורי הטקסט */
-  .hero {
-    background:
-      linear-gradient(180deg, rgba(31, 23, 18, 0) 44vw, rgba(31, 23, 18, 0.8) 70vw, #1f1712 83vw),
-      url("images/fire-circle.jpg") top center / 100% auto no-repeat,
-      #1f1712;
-  }
-  .hero-overlay { display: none; }
+  .hero-overlay { background: linear-gradient(180deg, rgba(31, 23, 18, 0) 44vw, rgba(31, 23, 18, 0.8) 70vw, #1f1712 83vw); }
+  .hero-scene:not(.is-live) { bottom: auto; height: 83.8vw; }
   .hero-inner { padding-top: 62vw; }
   .hero-copy .eyebrow, .hero-copy h1, .hero-copy p { text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65); }
 
